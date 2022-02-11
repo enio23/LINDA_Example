@@ -1,6 +1,6 @@
 **Differential Splicing**
 
-Here we prepare the rMATS exon skipping data (´´´/Data/SE.MATS.JunctionCountOnly.txt´´´) for the KDvsCtrl comparison into a 
+Here we prepare the rMATS exon skipping data ('''/Data/SE.MATS.JunctionCountOnly.txt''') for the KDvsCtrl comparison into a 
 format which can be taken as an input and analyzed by LINDA. In ´´´/Data/SE.MATS.JunctionCountOnly.txt´´´ we have been provided an effect size of the exon skipping
 event (*IncLevelDifference*) as well as a significance for that event (*PValue/FDR*). However the locations in which the skipping events accur have been provided as
 genomic coordinates and we need to transform them into corresponding Exon ID's. For that we rely on the steps provided in the *analysis_script.R* script.
