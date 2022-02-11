@@ -28,3 +28,5 @@ mandatory however it is recomended as we filter the background network from redu
 affecting the protein interaction networks in the Knockdown condition.
 
 **[63-74]:** Here we perform the CtrlvsKD splice-aware analysis from where we can identify the spliced mechanisms on the Control HepG2 cells.
+
+**TODO:** Update something about the results once the *prepare_cytoscape_view.R* function has been impelemnted within the LINDA R-Package.
