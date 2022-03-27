@@ -1,5 +1,3 @@
-## Script used to estimate the significance of TF activity score from DoRothEA
-
 estimate_significance <- function(expr = expr, regulons = regulons, nperm=1000){
   
   tf_activities_stat <- dorothea::run_viper(expr, regulons,
