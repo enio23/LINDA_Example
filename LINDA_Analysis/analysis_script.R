@@ -120,22 +120,3 @@ net <- prepare_cytoscape_visualization(netA = res_ctrl$combined_interactions,
 
 write.table(x = net$network, file = "output/network.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
 write.table(x = net$attributes, file = "output/attributes.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
-
-## Enrichment Analysis
-load(file = "reactome_genelist.RData")
-
-# Ctrl
-nodes_ctrl <- unique(c(res_ctrl$combined_interactions[, 1], res_ctrl$combined_interactions[, 3]))
-fora_ctrl <- fora(pathways = genelist, 
-                  genes = nodes_ctrl, 
-                  universe = unique(c(bg$gene_source, bg$gene_target)), 
-                  minSize = 5, 
-                  maxSize = Inf)
-
-# KD
-nodes_kd <- unique(c(res_kd$combined_interactions[, 1], res_kd$combined_interactions[, 3]))
-fora_kd <- fora(pathways = genelist, 
-                genes = nodes_kd, 
-                universe = unique(c(bg$gene_source, bg$gene_target)), 
-                minSize = 5, 
-                maxSize = Inf)
