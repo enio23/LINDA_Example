@@ -4,9 +4,9 @@ This repository shows the steps needed to be performed by the user in order to r
 
 The analysis follows the workflow depicted in the following graph:
 
-<p>
+<p align="center">
     <img src="https://github.com/enio23/LINDA_Example/blob/main/pipeline.jpeg" alt>
-    <em>image_caption</em>
+    <em>**1.** The Gene and Transcript abundance data for two replicate for the U2AF1-KD ([GEO:GSE88226](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE88226)) and U2AF1-Ctrl ([GEO:GSE88002](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE88002)) are downloaded and the expected counts are accesed. </em>
 </p>
 
 The repository is organized with the following directories:
