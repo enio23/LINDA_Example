@@ -2,7 +2,12 @@
 
 This repository shows the steps needed to be performed by the user in order to run the LINDA analysis from the gene and transcript expression data. The example here, refers to studying the splicing effects over the protein interaction networks up U2AF1 Knockdown of HepG2 cells (data from [ENCORE project](https://www.encodeproject.org/encore-matrix/?type=Experiment&status=released&internal_tags=ENCORE)). 
 
-The analysis follows the workflow depicted in ![pipeline](https://github.com/enio23/LINDA_Example/blob/main/pipeline.jpeg).
+The analysis follows the workflow depicted in the following graph:
+
+<p>
+    <img src="https://github.com/enio23/LINDA_Example/blob/main/pipeline.jpeg" alt>
+    <em>image_caption</em>
+</p>
 
 The repository is organized with the following directories:
 
