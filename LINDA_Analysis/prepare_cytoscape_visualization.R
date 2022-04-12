@@ -5,6 +5,7 @@ prepare_cytoscape_visualization <- function(netA = netA,
                                             pValThresh = 0.05,
                                             background.network = background.network,
                                             tf = tf,
+                                            sources = "Perturbation",
                                             network_path = NULL,
                                             attributes_path = NULL){
   
@@ -210,42 +211,74 @@ prepare_cytoscape_visualization <- function(netA = netA,
   attributes <- attributes[, 1:3]
   colnames(attributes) <- c("species", "type", "status")
   
-  # reac <- paste0(network[, 1], "=", network[, 2])
-  # ind <- which(duplicated(reac))
-  # 
-  # if(length(ind)>0){
-  #   
-  #   uReac <- unique(reac)
-  #   net <- matrix(data = , nrow = length(uReac), ncol = ncol(network))
-  #   colnames(net) <- colnames(network)
-  #   
-  #   for(ii in 1:length(uReac)){
-  #     
-  #     idx1 <- which(reac==uReac[ii])
-  #     idx2 <- idx1[which(as.numeric(network[idx1, 5])==max(as.numeric(network[idx1, 5])))[1]]
-  #     
-  #     net[ii, 1] <- strsplit(x = uReac[ii], split = "=", fixed = TRUE)[[1]][1]
-  #     net[ii, 2] <- strsplit(x = uReac[ii], split = "=", fixed = TRUE)[[1]][2]
-  #     
-  #     if(length(intersect(x = "Common", y = network[idx, 3]))>0 ||
-  #        length(intersect(x = c("Network_A", "Network_B"), y = network[idx, 3]))==2){
-  #       
-  #       net[ii, 3] <- "Common"
-  #       
-  #     } else {
-  #       
-  #       net[ii, 3] <- network[idx2, 3]
-  #       
-  #     }
-  #     
-  #     net[ii, 4:6] <- network[idx2, 4:6]
-  #     
-  #   }
-  #   
-  # }
+  reac <- paste0(network[, 1], "=", network[, 2])
+  ind <- which(duplicated(reac))
+
+  if(length(ind)>0){
+
+    uReac <- unique(reac)
+    net <- matrix(data = , nrow = length(uReac), ncol = ncol(network))
+    colnames(net) <- colnames(network)
+
+    for(ii in 1:length(uReac)){
+
+      idx1 <- which(reac==uReac[ii])
+      idx2 <- idx1[which(as.numeric(network[idx1, 5])==max(as.numeric(network[idx1, 5])))[1]]
+
+      net[ii, 1] <- strsplit(x = uReac[ii], split = "=", fixed = TRUE)[[1]][1]
+      net[ii, 2] <- strsplit(x = uReac[ii], split = "=", fixed = TRUE)[[1]][2]
+
+      if(length(intersect(x = "Common", y = network[idx, 3]))>0 ||
+         length(intersect(x = c("Network_A", "Network_B"), y = network[idx, 3]))==2){
+
+        net[ii, 3] <- "Common"
+
+      } else {
+
+        net[ii, 3] <- network[idx2, 3]
+
+      }
+
+      net[ii, 4:6] <- network[idx2, 4:6]
+
+    }
+
+  }
+  
+  status <- rep("solid", nrow(net))
+  idx <- intersect(x = which(grepl(pattern = "_", x = net[, 1], fixed = TRUE)), 
+                   y = which(grepl(pattern = "_", x = net[, 2], fixed = TRUE)))
+  status[idx] <- "arrow"
+  status <- as.matrix(status)
+
+  net <- cbind(net, status)
+  colnames(net)[ncol(net)] <- "status"
+  
+  idx <- intersect(x = which(!grepl(pattern = "_", x = net[, 1], fixed = TRUE)), 
+                   y = which(grepl(pattern = "_", x = net[, 2], fixed = TRUE)))
+  
+  for(ii in 1:length(idx)){
+    
+    ind <- intersect(x = which(net[, 1]==net[idx[ii], 2]), 
+                     y = which(net[, 2]==net[idx[ii], 1]))
+    
+    if(length(ind)==1){
+      
+      net[ind, 1:ncol(net)] <- net[idx[ii], 1:ncol(net)]
+      
+    }
+    
+  }
+  
+  idx <- which(attributes[, 1]%in%sources)
+  if(length(idx)>0){
+    
+    attributes[idx, 2] <- "S"
+    
+  }
   
   res <- list()
-  res[[length(res)+1]] <- network
+  res[[length(res)+1]] <- unique(net)
   res[[length(res)+1]] <- attributes
   names(res) <- c("network", "attributes")
   

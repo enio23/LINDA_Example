@@ -1,3 +1,5 @@
+#! /usr/bin/env Rscript
+
 set.seed(1234)
 
 library("readxl")
@@ -40,12 +42,12 @@ relgap = 0
 populate = 500
 nSolutions = 100
 intensity = 1
-timelimit = 18000
+timelimit = 7200
 process_log = FALSE
 replace = 1
-solverPath <- "/home/enio/Downloads/cplex"
+solverPath <- "/beegfs/homes/egjerga/cplex"
 pValThresh <- 0.05
-threads <- 4
+threads <- 20
 top <- length(which(tf_act$nes>=1))
 
 
@@ -70,7 +72,8 @@ res_ctrl <- runLINDA(input.scores = tf_act,
                      intensity = intensity, 
                      replace = replace, 
                      threads = threads, 
-                     solver = "cplex")
+                     solver = "cplex", 
+                     condition = 1)
 
 save(res_ctrl, file = "output/res_ctrl.RData")
 
@@ -96,7 +99,8 @@ res_kd <- runLINDA(input.scores = tf_act,
                    intensity = intensity, 
                    replace = replace, 
                    threads = threads, 
-                   solver = "cplex")
+                   solver = "cplex", 
+                   condition = 2)
 
 save(res_kd, file = "output/res_kd.RData")
 
@@ -111,7 +115,8 @@ net <- prepare_cytoscape_visualization(netA = res_ctrl$combined_interactions,
                                        spliceB = splice_effect, 
                                        pValThresh = 0.05, 
                                        background.network = bg, 
-                                       tf = tf_act$id[which(tf_act$nes==1)])
+                                       tf = tf_act$id[which(tf_act$nes==1)], 
+                                       sources = "Perturbation")
 
 write.table(x = net$network, file = "output/network.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)
 write.table(x = net$attributes, file = "output/attributes.txt", quote = FALSE, sep = "\t", row.names = FALSE, col.names = TRUE)

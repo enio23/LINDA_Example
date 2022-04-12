@@ -90,10 +90,10 @@ idx2rem <- which(duplicated(ctrl1$transcript_id)); if(length(idx2rem)>0){ctrl1 <
 idx2rem <- which(duplicated(ctrl2$transcript_id)); if(length(idx2rem)>0){ctrl2 <- ctrl2[-idx2rem, ]}
 
 df <- matrix(data = , nrow = nrow(kd1), ncol = 4)
-df[, 1] <- kd1$FPKM
-df[, 2] <- kd2$FPKM
-df[, 3] <- ctrl1$FPKM
-df[, 4] <- ctrl2$FPKM
+df[, 1] <- kd1$expected_count
+df[, 2] <- kd2$expected_count
+df[, 3] <- ctrl1$expected_count
+df[, 4] <- ctrl2$expected_count
 df <- as.data.frame(df)
 rownames(df) <- sapply(strsplit(x = kd1$transcript_id, split = ".", fixed = TRUE), '[', 1)
 colnames(df) <- c(paste0("kd_", 1:2), paste0("ctrl_", 1:2))

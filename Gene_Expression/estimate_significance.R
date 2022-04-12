@@ -20,7 +20,10 @@ estimate_significance <- function(expr = expr, regulons = regulons, nperm=1000){
   random_scores <- matrix(data = , nrow = nrow(input.scores), ncol = nperm)
   rownames(random_scores) <- input.scores$id[order(input.scores$id)]
   colnames(random_scores) <- paste0("perm_", 1:nperm)
+  
   for(ii in 1:nperm){
+    
+    print(paste0("Step ---- ", ii, "/", nperm))
     
     model.dsg <- birewire.induced.bipartite(sif, delimitators = list(negative="-", positive="+"))
     tmp <- birewire.rewire.dsg(model.dsg, verbose = FALSE, delimitators = list(negative="-", positive="+"))

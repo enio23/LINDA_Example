@@ -97,10 +97,10 @@ idx2rem <- which(duplicated(ctrl1$gene_id)); if(length(idx2rem)>0){ctrl1 <- ctrl
 idx2rem <- which(duplicated(ctrl2$gene_id)); if(length(idx2rem)>0){ctrl2 <- ctrl2[-idx2rem, ]}
 
 df <- matrix(data = , nrow = nrow(kd1), ncol = 4)
-df[, 1] <- kd1$FPKM
-df[, 2] <- kd2$FPKM
-df[, 3] <- ctrl1$FPKM
-df[, 4] <- ctrl2$FPKM
+df[, 1] <- kd1$expected_count
+df[, 2] <- kd2$expected_count
+df[, 3] <- ctrl1$expected_count
+df[, 4] <- ctrl2$expected_count
 df <- as.data.frame(df)
 rownames(df) <- sapply(strsplit(x = kd1$gene_id, split = ".", fixed = TRUE), '[', 1)
 colnames(df) <- c(paste0("kd_", 1:2), paste0("ctrl_", 1:2))
@@ -135,7 +135,7 @@ res=glmQLFTest(fit, coef=2)
 ttop=as.data.frame(topTags(res,n=nrow(df)))
 ttop$ID <- rownames(ttop)
 
-save(ttop, file = paste0("output/ttop_u2af1_hepg2.RData"))
+save(ttop, file = "output/ttop_u2af1_hepg2.RData")
 
 file.remove(paste0("kd1.tsv"))
 file.remove(paste0("kd2.tsv"))
