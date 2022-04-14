@@ -72,7 +72,7 @@ for(jj in 1:length(experiments)){
   }
 }
 
-# Build FPKM data matrix
+# Build Count data matrix
 kd1 <- read.table(file = paste0("kd1.tsv"), header = TRUE)
 kd2 <- read.table(file = paste0("kd2.tsv"), header = TRUE)
 ctrl1 <- read.table(file = paste0("ctrl1.tsv"), header = TRUE)
